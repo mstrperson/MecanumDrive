@@ -19,10 +19,6 @@ MecanumDrive::MecanumDrive(
     rightBack->setOrientation(REVERSED);
 }
 
-///
-/// @param x Horizontal Strafe Component
-/// @param y Vertical Strafe Component
-/// @param t Rotational Bias
 void MecanumDrive::drive(double x, double y, double t)
 {
     double angle = atan2(y, x);
@@ -52,4 +48,16 @@ void MecanumDrive::setPWMPulseRange(int min, int max) {
     rightFront->setPWMPulseRange(min, max);
     leftBack->setPWMPulseRange(min, max);
     rightBack->setPWMPulseRange(min, max);
+}
+
+void MecanumDrive::setMotorOrientations(
+    MotorDirection leftFront,
+    MotorDirection rightFront,
+    MotorDirection rightBack,
+    MotorDirection leftBack)
+{
+    this->leftFront->setOrientation(leftFront);
+    this->rightFront->setOrientation(rightFront);
+    this->rightBack->setOrientation(rightBack);
+    this->leftBack->setOrientation(leftBack);
 }

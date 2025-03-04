@@ -25,7 +25,10 @@ DCMotor::DCMotor(unsigned int pin)
 /// @param speed -1.0 to 1.0
 void DCMotor::setSpeed(double speed)
 {
+    if (this->reversed)
+        speed = -speed;
     int pwm = MapDoubleToPWM(speed);
+
     servo.writeMicroseconds(pwm);
 }
 
