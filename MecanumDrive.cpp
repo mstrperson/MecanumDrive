@@ -19,6 +19,14 @@ MecanumDrive::MecanumDrive(
     rightBack->setOrientation(REVERSED);
 }
 
+MecanumDrive::~MecanumDrive()
+{
+    delete leftFront;
+    delete rightFront;
+    delete rightBack;
+    delete leftBack;
+}
+
 void MecanumDrive::drive(double x, double y, double t)
 {
     double angle = atan2(y, x);

@@ -23,6 +23,8 @@ class MecanumDrive
         unsigned int rightBackPin,
         unsigned int leftBackPin);
 
+    ~MecanumDrive();
+
     /// Does all the math to write drive outputs given Joystick Inputs
     /// @param x Left-Right Strafe Component
     /// @param y Forward-Backward Strafe Component

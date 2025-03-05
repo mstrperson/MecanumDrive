@@ -15,16 +15,18 @@ enum MotorDirection {
 class DCMotor
 {
     unsigned int pin;
-    Servo servo;
+    Servo* servo;
     int PWM_MIN   = 1500;
     int PWM_MAX   = 2500;
     int PWM_ZERO  = PWM_MIN + (PWM_MAX-PWM_MIN)/2;
     bool reversed = false;
 
-    [[nodiscard]] int MapDoubleToPWM(double percentage);
+    [[nodiscard]] int mapDoubleToPWM(double percentage);
 
     public:
     explicit DCMotor(unsigned int pin);
+
+    ~DCMotor();
 
     ///
     /// @param speed -1.0 to 1.0

@@ -5,7 +5,7 @@
 #include "DCMotor.h"
 #include "Servo.h"
 
-int DCMotor::MapDoubleToPWM(double percentage)
+int DCMotor::mapDoubleToPWM(double percentage)
 {
     if (percentage > 1) percentage = 1;
     else if (percentage < -1) percentage = -1;
@@ -17,8 +17,12 @@ int DCMotor::MapDoubleToPWM(double percentage)
 DCMotor::DCMotor(unsigned int pin)
 {
     this->pin = pin;
-    servo = Servo();
-    this->servo.attach(pin);
+    servo = new Servo();
+    this->servo->attach(pin);
+}
+
+DCMotor::~DCMotor() {
+    delete servo;
 }
 
 /// 
@@ -27,9 +31,9 @@ void DCMotor::setSpeed(double speed)
 {
     if (this->reversed)
         speed = -speed;
-    int pwm = MapDoubleToPWM(speed);
+    int pwm = mapDoubleToPWM(speed);
 
-    servo.writeMicroseconds(pwm);
+    servo->writeMicroseconds(pwm);
 }
 
 void DCMotor::setPWMPulseRange(int min, int max)
