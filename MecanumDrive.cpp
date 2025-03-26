@@ -35,20 +35,28 @@ void MecanumDrive::drive(double x, double y, double t)
     if (magnitude < 0.05) magnitude = 0;
     if (magnitude > 1.0) magnitude = 1.0;
 
-    double y1 = sin(angle + PI/4) * magnitude + t;
-    double y2 = sin(angle - PI/4) * magnitude + t;
+    double y1 = sin(angle + PI/4) * magnitude;
+    double y2 = sin(angle - PI/4) * magnitude;
 
-    if (abs(y1) > 1.0 || abs(y2) > 1.0)
+    double lf = y1 + t,
+           lb = y2 + t,
+           rf = y2 - t,
+           rb = y1 - t;
+
+    double m = max(abs(lf), max(abs(lb), max(abs(rf), abs(rb))));
+
+    if (m > 1.0)
     {
-        double scaleFactor = max(abs(y1), abs(y2));
-        y1 *= 1/scaleFactor;
-        y2 *= 1/scaleFactor;
+        lf /= m;
+        lb /= m;
+        rf /= m;
+        rb /= m;
     }
 
-    leftFront->setSpeed(y1);
-    rightBack->setSpeed(y1);
-    rightFront->setSpeed(y2);
-    leftBack->setSpeed(y2);
+    leftFront->setSpeed(lf);
+    rightBack->setSpeed(rb);
+    rightFront->setSpeed(rf);
+    leftBack->setSpeed(lb);
 }
 
 void MecanumDrive::setPWMPulseRange(int min, int max) {

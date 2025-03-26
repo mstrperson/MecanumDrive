@@ -7,11 +7,14 @@
 
 #include "Servo.h"
 
+/// Set the configured direction of a MotorController to account for physical orientation.
 enum MotorDirection {
     FORWARD,
     REVERSED
 };
 
+/// Encapsulates a Servo object with the additional configuration that
+/// controls the mapping of percentage speed into the configured PWM duty cycle range.
 class DCMotor
 {
     unsigned int pin;
